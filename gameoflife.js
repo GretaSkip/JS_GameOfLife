@@ -37,14 +37,75 @@ for (let i = 0; i < area.length; i++) {
 area2 = [];
 
 // generuojame antrą table
-for (let i = 0; i < 5; i++) {
+for (let Y = 0; Y < 5; Y++) {
     area2.push([]);
-    for (let a = 0; a < 5; a++) {
-        if (area[i][a] == " ") {
-            area2[i].push(" ");
-        } else {
-            area2[i].push("0");
+    for (let X = 0; X < 5; X++) {
+        let count = 0;
+        // if (area[Y][X] == " ") {
+        //     // area2[Y].push(" ");
+        // }
+
+        if (X > 0 && Y > 0) {
+            if (area[Y - 1][X - 1] == "X") {
+                count++;
+            }
         }
+
+        if (Y > 0) {
+            if (area[Y - 1][X] == "X") {
+                count++;
+            }
+        }
+
+        if (Y > 0 && X < area.length - 1) {
+            if (area[Y - 1][X + 1] == "X") {
+                count++;
+            }
+        }
+
+        if (X > 0) {
+            if (area[Y][X - 1] == "X") {
+                count++;
+            }
+        }
+
+        if (X < area.length - 1) {
+            if (area[Y][X + 1] == "X") {
+                count++;
+            }
+        }
+
+        if (Y < area[Y].length - 1 && X > 0) {
+            if (area[Y + 1][X - 1] == "X") {
+                count++;
+            }
+        }
+        if (Y < area[Y].length - 1) {
+            if (area[Y + 1][X] == "X") {
+                count++;
+            }
+        }
+
+        if (Y < area[Y].length - 1 && X < area.length - 1) {
+            if (area[Y + 1][X + 1] == "X") {
+                count++;
+            }
+        }
+
+
+
+        //  Any live cell with two or three live neighbours survives.
+        //  Any dead cell with three live neighbours becomes a live cell.
+        //  All other live cells die in the next generation. Similarly, all other dead cells stay dead.
+
+        if ((count == 2 || count == 3) && area[Y][X] == "X") {
+            area2[Y].push('X');
+        } else if (count == 3 && area[Y][X] == " ") {
+            area2[Y].push('X');
+        } else {
+            area2[Y].push(' ');
+        }
+
     }
 }
 
@@ -59,33 +120,6 @@ for (let i = 0; i < area2.length; i++) {
     console.log(row, i);
 }
 
-countNeighbors(row, col);
-
-function countNeighbors(row, col) {
-    var count = 0;
-    if (row-1 >= 0) {
-        if (grid[row-1][col] == 1) count++;
-    }
-    if (row-1 >= 0 && col-1 >= 0) {
-        if (grid[row-1][col-1] == 1) count++;
-    }
-    if (row-1 >= 0 && col+1 < cols) {
-        if (grid[row-1][col+1] == 1) count++;
-    }
-    if (col-1 >= 0) {
-        if (grid[row][col-1] == 1) count++;
-    }
-    if (col+1 < cols) {
-        if (grid[row][col+1] == 1) count++;
-    }
-    if (row+1 < rows) {
-        if (grid[row+1][col] == 1) count++;
-    }
-    if (row+1 < rows && col-1 >= 0) {
-        if (grid[row+1][col-1] == 1) count++;
-    }
-    if (row+1 < rows && col+1 < cols) {
-        if (grid[row+1][col+1] == 1) count++;
-    }
-    return count;
+function printTable() {
+    
 }
